@@ -1,4 +1,4 @@
-from board import Game
+from game import Game
 import tkinter as tk
 
 game = Game()

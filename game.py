@@ -1,6 +1,4 @@
 import random
-from enum import Enum
-
 
 class Util:
     @staticmethod
