@@ -56,11 +56,11 @@ class AI:
             for r,c in empty:
                 board2 = self.clone_board(board)
                 board2.grid[r][c] = 2
-                expected_value += (1/len(empty)) * self.expectimax(board2, depth - 1, True)
+                expected_value += (1/len(empty)) * 0.9 * self.expectimax(board2, depth - 1, True)
 
                 board4 = self.clone_board(board)
                 board4.grid[r][c] = 4
-                expected_value += (1/len(empty)) * self.expectimax(board4, depth - 1, True)
+                expected_value += (1/len(empty)) * 0.1 * self.expectimax(board4, depth - 1, True)
             
             return expected_value
     
