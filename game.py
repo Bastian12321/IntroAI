@@ -111,6 +111,32 @@ class Board:
                 moved = True
         return moved
 
+    def has_won(self):
+        for row in self.grid:
+            if 2048 in row:
+                return True
+        return False
+
+    def can_move(self):
+        # If there is an empty space, game is not over
+        for row in self.grid:
+            if 0 in row:
+                return True
+
+        # Check horizontal neighbors
+        for r in range(4):
+            for c in range(3):
+                if self.grid[r][c] == self.grid[r][c + 1]:
+                    return True
+
+        # Check vertical neighbors
+        for r in range(3):
+            for c in range(4):
+                if self.grid[r][c] == self.grid[r + 1][c]:
+                    return True
+
+        return False
+
     def print_board(self):
         for row in self.grid:
             print(row)
@@ -121,9 +147,15 @@ class Game:
     def __init__(self):
         self.board = Board()
         self.score = 0
+        self.won = False
+        self.game_over = False
         self.pretty_print()
 
     def play_turn(self, direction):
+        if self.game_over:
+            print("Game is already over.")
+            return False
+
         moved = False
 
         if direction == 'a':
@@ -134,14 +166,28 @@ class Game:
             moved = self.board.move_up()
         elif direction == 's':
             moved = self.board.move_down()
+        else:
+            print("Invalid move. Use w/a/s/d.")
+            return False
 
         if moved:
+            if self.board.has_won() and not self.won:
+                self.won = True
+                self.pretty_print()
+                print("You win!")
+                return True
+            
             self.board.spawn_tile()
 
+            if not self.board.can_move():
+                self.game_over = True
+                self.pretty_print()
+                print("You lose!")
+                return True
+
         self.pretty_print()
-        
         return moved
-    
+
     def pretty_print(self):
         for row in self.board.grid:
             print(*row)
