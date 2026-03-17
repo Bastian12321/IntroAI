@@ -4,16 +4,9 @@ import ai
 
 game = Game()
 computer = ai.AI()
-"""
-def main():
-    for _ in range(20):
-        move = computer.move_ai(game.board)
-        print(f"AI recommends move: {move}")
-        game.play_turn(move)
-main()
-"""
-game = Game()
 cells = []
+window = None
+ai_running = True
 
 
 def update_ui():
@@ -24,7 +17,9 @@ def update_ui():
             cells[r][c].config(text=text)
 
 
-def key_pressed(event, window):
+def key_pressed(event):
+    global ai_running
+
     key = event.keysym.lower()
 
     key_map = {
@@ -39,27 +34,58 @@ def key_pressed(event, window):
     }
 
     if key in key_map:
+        ai_running = False  # stop AI if player presses a key
         moved = game.play_turn(key_map[key])
 
         if moved:
             update_ui()
 
-        if game.won:
-            print("You win!")
-            window.after(800, window.destroy)  # nicer than instant close
+        check_game_end()
 
-        elif game.game_over:
-            print("Game over!")
-            window.after(800, window.destroy)
+
+def check_game_end():
+    if game.won:
+        print("You win!")
+        window.after(800, window.destroy)
+        return True
+
+    if game.game_over:
+        print("Game over!")
+        window.after(800, window.destroy)
+        return True
+
+    return False
+
+
+def run_ai():
+    global ai_running
+
+    if not ai_running:
+        return
+
+    if check_game_end():
+        return
+
+    move = computer.move_ai(game.board)
+
+    if move in ("w", "a", "s", "d"):
+        moved = game.play_turn(move)
+
+        if moved:
+            update_ui()
+
+    if check_game_end():
+        return
+
+    window.after(50, run_ai)
 
 
 def main():
-    global cells
+    global cells, window
 
     window = tk.Tk()
-    window.title("2048")
+    window.title("2048 AI")
 
-    # Create grid
     for r in range(4):
         row = []
         for c in range(4):
@@ -72,15 +98,16 @@ def main():
                 borderwidth=2,
                 relief="solid"
             )
-            label.grid(row=r, column=c)
+            label.grid(row=r, column=c, padx=2, pady=2)
             row.append(label)
         cells.append(row)
 
     update_ui()
 
-    window.bind("<KeyPress>", lambda event: key_pressed(event, window))
+    window.bind("<KeyPress>", key_pressed)
     window.focus_set()
 
+    window.after(500, run_ai)  # start AI after window opens
     window.mainloop()
 
 

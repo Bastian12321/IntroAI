@@ -185,7 +185,6 @@ class Game:
                 print("You lose!")
                 return True
 
-        self.pretty_print()
         return moved
 
     def pretty_print(self):
