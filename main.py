@@ -40,42 +40,25 @@ def key_pressed(event):
         if moved:
             update_ui()
 
-        check_game_end()
-
-
-def check_game_end():
-    if game.won:
-        print("You win!")
-        window.after(800, window.destroy)
-        return True
-
-    if game.game_over:
-        print("Game over!")
-        window.after(800, window.destroy)
-        return True
-
-    return False
-
 
 def run_ai():
     global ai_running
 
     if not ai_running:
-        return
-
-    if check_game_end():
+        print("AI stopped. Player took control.")
         return
 
     move = computer.move_ai(game.board)
+    
+    if move is None:
+        window.after(800, window.destroy)
+        return
 
     if move in ("w", "a", "s", "d"):
         moved = game.play_turn(move)
 
         if moved:
             update_ui()
-
-    if check_game_end():
-        return
 
     window.after(50, run_ai)
 

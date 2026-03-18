@@ -51,7 +51,7 @@ class AI:
             empty = self.empty_cells(board)
             expected_value = 0.0
             if not empty:
-                return self.heuristic(board)
+                return self.expectimax(board, depth - 1, True)
             
             for r,c in empty:
                 board2 = self.clone_board(board)
@@ -73,10 +73,9 @@ class AI:
             if not moved:
                 continue
             value = self.expectimax(simulated_board, 3, False)
-            if value > best_value:
+            if value >= best_value:
                 best_value = value
                 best_move = move
-        
         return best_move
         
     #Simple heuristic.
