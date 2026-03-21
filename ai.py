@@ -77,8 +77,22 @@ class AI:
                 best_value = value
                 best_move = move
         return best_move
-        
+
     #Simple heuristic.
     def heuristic(self, board):
+        return self.emptycellsheuristic(board) * self.weightedcellsheuristic(board)/16
+    
+    def emptycellsheuristic(self, board):
         empty_cells = self.empty_cells(board)
         return len(empty_cells)
+    
+    def weightedcellsheuristic(self, board):
+        weight = [[4, 3, 2, 1],
+                  [3, 2, 1, 0],
+                  [2, 1, 0, -1],
+                  [1, 0, -1, -2]]
+        score = 0
+        for i in range(4):
+            for j in range(4):
+                score += board.grid[i][j] * weight[i][j]
+        return score
