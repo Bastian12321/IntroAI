@@ -1,3 +1,4 @@
+import math
 from game import Game,Board
 class AI:
     def __init__(self):
@@ -80,19 +81,29 @@ class AI:
 
     #Simple heuristic.
     def heuristic(self, board):
-        return self.weightedcellsheuristic(board)
+        return  self.weightedcellsheuristic(board) + 1.5 * self.emptycellsheuristic(board)
     
     def emptycellsheuristic(self, board):
         empty_cells = self.empty_cells(board)
-        return len(empty_cells)
+        return len(empty_cells)/16
     
     def weightedcellsheuristic(self, board):
         weight = [[16, 15, 14, 13],
                   [9, 10, 11, 12],
                   [8, 7, 6, 5],
                   [1, 2, 3, 4]]
+        max_tile = findmaxtile(board)
         score = 0
         for i in range(4):
             for j in range(4):
-                score += board.grid[i][j] * weight[i][j]
+                if board.grid[i][j] != 0:
+                    score += board.grid[i][j] * weight[i][j] / max_tile
         return score
+
+def findmaxtile(board):
+    max_tile = 0
+    for i in range(4):
+        for j in range(4):
+            if board.grid[i][j] > max_tile:
+                max_tile = board.grid[i][j]
+    return max_tile
