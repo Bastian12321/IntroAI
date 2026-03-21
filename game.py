@@ -171,12 +171,13 @@ class Game:
             return False
 
         if moved:
+            """
             if self.board.has_won() and not self.won:
                 self.won = True
                 self.pretty_print()
                 print("You win!")
                 return True
-            
+            """
             self.board.spawn_tile()
 
             if not self.board.can_move():
