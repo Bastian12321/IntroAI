@@ -80,17 +80,17 @@ class AI:
 
     #Simple heuristic.
     def heuristic(self, board):
-        return self.emptycellsheuristic(board) * self.weightedcellsheuristic(board)/16
+        return self.weightedcellsheuristic(board)
     
     def emptycellsheuristic(self, board):
         empty_cells = self.empty_cells(board)
         return len(empty_cells)
     
     def weightedcellsheuristic(self, board):
-        weight = [[4, 3, 2, 1],
-                  [3, 2, 1, 0],
-                  [2, 1, 0, -1],
-                  [1, 0, -1, -2]]
+        weight = [[16, 15, 14, 13],
+                  [9, 10, 11, 12],
+                  [8, 7, 6, 5],
+                  [1, 2, 3, 4]]
         score = 0
         for i in range(4):
             for j in range(4):
