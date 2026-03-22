@@ -116,10 +116,10 @@ class Heuristics:
     @staticmethod
     def get_snake_patterns():
         snake1 = [
-            [16, 15, 14, 13],
-            [9, 10, 11, 12],
-            [8, 7, 6, 5],
-            [1, 2, 3, 4]
+            [15, 14, 13, 12],
+            [8, 9, 10, 11],
+            [7, 6, 5, 4],
+            [0, 1, 2, 3]
         ]
 
         snake2 = Helper.transpose(snake1)
@@ -142,7 +142,7 @@ class Heuristics:
             for r in range(4):
                 for c in range(4):
                     exp = board.grid[r][c]
-                    score += (2 ** exp) * pattern[r][c]
+                    score += (2 ** exp) * 2 ** pattern[r][c]
             best_score = max(best_score, score)
 
         return best_score
