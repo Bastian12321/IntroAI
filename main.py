@@ -62,7 +62,7 @@ def run_ai():
         if moved:
             update_ui()
 
-    window.after(50, run_ai)
+    window.after(1, run_ai)
 
 
 def main():
@@ -92,7 +92,7 @@ def main():
     window.bind("<KeyPress>", key_pressed)
     window.focus_set()
 
-    window.after(500, run_ai)  # start AI after window opens
+    window.after(1, run_ai)  # start AI after window opens
     window.mainloop()
 
 
