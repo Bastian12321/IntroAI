@@ -12,8 +12,8 @@ ai_running = True
 def update_ui():
     for r in range(4):
         for c in range(4):
-            value = game.board.grid[r][c]
-            text = str(value) if value != 0 else ""
+            exp = game.board.grid[r][c]
+            text = str(2 ** exp) if exp != 0 else ""
             cells[r][c].config(text=text)
 
 
@@ -34,7 +34,7 @@ def key_pressed(event):
     }
 
     if key in key_map:
-        ai_running = False  # stop AI if player presses a key
+        ai_running = False
         moved = game.play_turn(key_map[key])
 
         if moved:
@@ -49,7 +49,7 @@ def run_ai():
         return
 
     move = computer.move_ai(game.board)
-    
+
     if move is None:
         window.after(800, window.destroy)
         return
@@ -90,7 +90,7 @@ def main():
     window.bind("<KeyPress>", key_pressed)
     window.focus_set()
 
-    window.after(1, run_ai)  # start AI after window opens
+    window.after(1, run_ai)
     window.mainloop()
 
 
