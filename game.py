@@ -1,5 +1,6 @@
 import random
 
+
 class Util:
     @staticmethod
     def settle(arr, start):
@@ -24,7 +25,6 @@ class Util:
                 arr[i] *= 2
                 arr = Util.settle(arr, i + 1)
 
-        arr = Util.slide(arr)
         return arr
 
 
@@ -158,13 +158,13 @@ class Game:
 
         moved = False
 
-        if direction == 'a':
+        if direction == "a":
             moved = self.board.move_left()
-        elif direction == 'd':
+        elif direction == "d":
             moved = self.board.move_right()
-        elif direction == 'w':
+        elif direction == "w":
             moved = self.board.move_up()
-        elif direction == 's':
+        elif direction == "s":
             moved = self.board.move_down()
         else:
             print("Invalid move. Use w/a/s/d.")

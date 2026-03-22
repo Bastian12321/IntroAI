@@ -49,7 +49,7 @@ def run_ai():
         return
 
     move = computer.move_ai(game.board)
-    
+
     if move is None:
         window.after(800, window.destroy)
         return
@@ -79,7 +79,7 @@ def main():
                 height=3,
                 font=("Arial", 24),
                 borderwidth=2,
-                relief="solid"
+                relief="solid",
             )
             label.grid(row=r, column=c, padx=2, pady=2)
             row.append(label)

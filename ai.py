@@ -1,8 +1,10 @@
 import math
-from game import Game,Board
+from game import Game, Board
+
+
 class AI:
     def __init__(self):
-        self.Moves = ['a', 'd', 'w', 's']
+        self.Moves = ["a", "d", "w", "s"]
         pass
 
     def clone_board(self, board):
@@ -11,22 +13,22 @@ class AI:
             for j in range(4):
                 cloned.grid[i][j] = board.grid[i][j]
         return cloned
-    
+
     def simulated_turn(self, board, direction):
         moved = False
         new_board = self.clone_board(board)
 
-        if direction == 'a':
+        if direction == "a":
             moved = new_board.move_left()
-        elif direction == 'd':
+        elif direction == "d":
             moved = new_board.move_right()
-        elif direction == 'w':
+        elif direction == "w":
             moved = new_board.move_up()
-        elif direction == 's':
+        elif direction == "s":
             moved = new_board.move_down()
-        
+
         return new_board, moved
-    
+
     def empty_cells(self, board):
         empty = []
         for i in range(4):
@@ -38,9 +40,9 @@ class AI:
     def expectimax(self, board, depth, player):
         if depth == 0:
             return self.heuristic(board)
-        
+
         if player:
-            best_value = float('-inf')
+            best_value = float("-inf")
             for move in self.Moves:
                 simulated_board, moved = self.simulated_turn(board, move)
                 if not moved:
@@ -53,21 +55,25 @@ class AI:
             expected_value = 0.0
             if not empty:
                 return self.expectimax(board, depth - 1, True)
-            
-            for r,c in empty:
+
+            for r, c in empty:
                 board2 = self.clone_board(board)
                 board2.grid[r][c] = 2
-                expected_value += (1/len(empty)) * 0.9 * self.expectimax(board2, depth - 1, True)
+                expected_value += (
+                    (1 / len(empty)) * 0.9 * self.expectimax(board2, depth - 1, True)
+                )
 
                 board4 = self.clone_board(board)
                 board4.grid[r][c] = 4
-                expected_value += (1/len(empty)) * 0.1 * self.expectimax(board4, depth - 1, True)
-            
+                expected_value += (
+                    (1 / len(empty)) * 0.1 * self.expectimax(board4, depth - 1, True)
+                )
+
             return expected_value
-    
+
     def move_ai(self, board):
         best_move = None
-        best_value = float('-inf')
+        best_value = float("-inf")
 
         for move in self.Moves:
             simulated_board, moved = self.simulated_turn(board, move)
@@ -79,19 +85,18 @@ class AI:
                 best_move = move
         return best_move
 
-    #Simple heuristic.
+    # Simple heuristic.
     def heuristic(self, board):
-        return  self.weightedcellsheuristic(board) + 1.5 * self.emptycellsheuristic(board)
-    
+        return self.weightedcellsheuristic(board) + 1.5 * self.emptycellsheuristic(
+            board
+        )
+
     def emptycellsheuristic(self, board):
         empty_cells = self.empty_cells(board)
-        return len(empty_cells)/16
-    
+        return len(empty_cells) / 16
+
     def weightedcellsheuristic(self, board):
-        weight = [[16, 15, 14, 13],
-                  [9, 10, 11, 12],
-                  [8, 7, 6, 5],
-                  [1, 2, 3, 4]]
+        weight = [[16, 15, 14, 13], [9, 10, 11, 12], [8, 7, 6, 5], [1, 2, 3, 4]]
         max_tile = findmaxtile(board)
         score = 0
         for i in range(4):
@@ -99,6 +104,7 @@ class AI:
                 if board.grid[i][j] != 0:
                     score += board.grid[i][j] * weight[i][j] / max_tile
         return score
+
 
 def findmaxtile(board):
     max_tile = 0
