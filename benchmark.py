@@ -14,7 +14,7 @@ def fresh_game():
     return g
 
 
-def run_benchmark(ai_player, num_games=20, label="AI"):
+def run_benchmark(ai_player, num_games=10, label="AI"):
     wins = 0
     scores = []
     max_tiles = []
@@ -121,7 +121,9 @@ if __name__ == "__main__":
 
     players = [
         (expectimax.ExpectiMax(), "Expectimax"),
-        (mcts.MCTS(),             "MCTS"),
+        (mcts.MCTS(250, 5),             "MCTS-250"),
+        (mcts.MCTS(500, 5),             "MCTS-500"),
+        (mcts.MCTS(750, 5),             "MCTS-750"),
     ]
 
     all_results = []
