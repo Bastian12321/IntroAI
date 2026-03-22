@@ -1,9 +1,11 @@
 from game import Game
 import tkinter as tk
 import ai
+import mcts
 
 game = Game()
 computer = ai.AI()
+computer2 = mcts.MCTS()
 cells = []
 window = None
 ai_running = True
@@ -48,8 +50,8 @@ def run_ai():
         print("AI stopped. Player took control.")
         return
 
-    move = computer.move_ai(game.board)
-
+    move = computer2.move_ai(game.board)
+    
     if move is None:
         window.after(800, window.destroy)
         return
