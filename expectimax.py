@@ -110,7 +110,7 @@ class Heuristics:
     @staticmethod
     def heuristic(board):
         return (
-            12.0 * Heuristics.snake_pattern_heuristic(board)
+            Heuristics.snake_pattern_heuristic(board)
         )
 
     @staticmethod
@@ -142,7 +142,7 @@ class Heuristics:
             for r in range(4):
                 for c in range(4):
                     exp = board.grid[r][c]
-                    score += (2 ** exp) * 2 ** pattern[r][c]
+                    score += (2 ** exp) * pattern[r][c]
             best_score = max(best_score, score)
 
         return best_score
