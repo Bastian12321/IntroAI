@@ -67,12 +67,6 @@ class Board:
     def set_col(self, c, col):
         for r in range(BOARD_SIZE):
             self.grid[r][c] = col[r]
-            
-    def get_calculated_board(self):
-        return [
-            [0 if exp == 0 else 2 ** exp for exp in row]
-            for row in self.grid
-        ]
 
     def move_left(self):
         moved = False
@@ -221,10 +215,6 @@ class Game:
 
         self.score += gained
 
-        if self.board.has_won() and not self.won:
-            self.won = True
-            print("You win!")
-
         self.board.spawn_tile()
 
         if not self.board.can_move():
@@ -239,6 +229,12 @@ class Game:
         self.board.print_raw_board()
         print(f"Score: {self.score}")
         print()
+        
+    def get_calculated_board(self):
+        return [
+            [0 if exp == 0 else 2 ** exp for exp in row]
+            for row in self.board.grid
+        ]
 
 
 if __name__ == "__main__":

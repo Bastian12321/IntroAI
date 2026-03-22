@@ -108,8 +108,8 @@ class MCTS:
         i = 0
         while i < len(r) - 1:
             if r[i] == r[i + 1]:
-                r[i] *= 2
-                points += r[i]  # track merge score
+                r[i] += 1
+                points += 2 ** r[i] # Track merge score
                 r.pop(i + 1)
             i += 1
         while len(r) < 4:
@@ -155,7 +155,7 @@ class MCTS:
         empty = [(r, c) for r in range(4) for c in range(4) if grid[r][c] == 0]
         if empty:
             r, c = random.choice(empty)
-            grid[r][c] = 2 if random.random() < 0.9 else 4
+            grid[r][c] = 1 if random.random() < 0.9 else 2
 
     def _can_move(self, grid):
         for row in grid:

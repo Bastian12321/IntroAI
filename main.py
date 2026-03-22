@@ -1,11 +1,12 @@
 from game import Game
 import tkinter as tk
-import ai
+import main
 import mcts
+import expectimax
 
 game = Game()
-computer = ai.AI()
-computer2 = mcts.MCTS()
+EXPECTIMAX_AI = expectimax.ExpectiMax()
+MCTS_AI = mcts.MCTS()
 cells = []
 window = None
 ai_running = True
@@ -50,7 +51,8 @@ def run_ai():
         print("AI stopped. Player took control.")
         return
 
-    move = computer2.move_ai(game.board)
+    #move = MCTS_AI.move_ai(game.board)
+    move = EXPECTIMAX_AI.move_ai(game.board)
     
     if move is None:
         window.after(800, window.destroy)

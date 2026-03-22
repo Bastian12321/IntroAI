@@ -1,7 +1,7 @@
 from game import Board
 
 
-class AI:
+class ExpectiMax:
     def __init__(self):
         self.Moves = ['a', 'd', 'w', 's']
 
