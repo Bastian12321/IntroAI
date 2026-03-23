@@ -117,13 +117,13 @@ def print_results(results):
 
 
 if __name__ == "__main__":
-    NUM_GAMES = 20
+    NUM_GAMES = 10
 
     players = [
-        (expectimax.ExpectiMax(), "Expectimax"),
-        (mcts.MCTS(250, 5),             "MCTS-250"),
-        (mcts.MCTS(500, 5),             "MCTS-500"),
-        (mcts.MCTS(750, 5),             "MCTS-750"),
+        (expectimax.ExpectiMax(), "Expectimax")
+        (mcts.MCTS(250, 5),             "MCTS-50"),
+        (mcts.MCTS(500, 5),             "MCTS-100"),
+        (mcts.MCTS(750, 5),             "MCTS-250"),
     ]
 
     all_results = []

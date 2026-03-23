@@ -51,8 +51,8 @@ def run_ai():
         print("AI stopped. Player took control.")
         return
 
-    #move = MCTS_AI.move_ai(game.board)
-    move = EXPECTIMAX_AI.move_ai(game.board)
+    move = MCTS_AI.move_ai(game.board)
+    #move = EXPECTIMAX_AI.move_ai(game.board)
     
     if move is None:
         window.after(800, window.destroy)

@@ -29,6 +29,9 @@ class MCTSNode:
         return [m for m in ['w', 'a', 's', 'd'] if m not in tried]
 
 
+
+
+
 class MCTS:
     def __init__(self, iterations=500, rollout_depth=5):
         self.iterations = iterations
@@ -146,7 +149,6 @@ class MCTS:
         return total_points
 
     def _move_changes(self, grid, move):
-        """Returns True if the move would change the grid."""
         test = [row[:] for row in grid]
         self._apply_move(test, move)
         return test != grid
