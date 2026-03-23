@@ -1,6 +1,5 @@
 from game import Game
 import tkinter as tk
-import main
 import mcts
 import expectimax
 
