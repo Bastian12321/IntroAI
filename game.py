@@ -176,12 +176,6 @@ class Board:
             print(row)
         print()
 
-    def is_late_game(self):
-        return self.max_exponent() >= 11
-
-    def is_in_danger(self):
-        return len(self.empty_cells()) <= 2
-
 
 class Game:
     def __init__(self):
